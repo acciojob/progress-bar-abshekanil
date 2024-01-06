@@ -16,5 +16,25 @@ document.addEventListener("DOMContentLoaded", function(){
 		}
 	});
 
-	nextBtn.addEventListener
+	nextBtn.addEventListener("click" function(){
+		if(currentIndex < circles.length - 1)
+		{
+			currentIndex++;
+			updateButtonState();
+		}
+	});
+		function updateButtonState(){
+			circles.forEach((circle, index) =>{
+				if(index === currentIndex)
+				{
+					circle.classList.add("active");
+				}
+				else{
+					circle.classList.remove("active");
+				}
+			});
+
+			prevBtn.disabled = currentIndex === 0;
+			nextBtn.disabled = currentIndex === circles.length - 1;
+		}
 });
