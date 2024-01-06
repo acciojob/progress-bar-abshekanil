@@ -8,49 +8,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateButtonState();
 
-    prevBtn.addEventListener("click", async function () {
+    prevBtn.addEventListener("click", function () {
         if (currentIndex > 0) {
             currentIndex--;
-            await updateButtonState();
+            updateButtonState().then(() => {}); // Resolve the promise
         }
     });
 
-    nextBtn.addEventListener("click", async function () {
+    nextBtn.addEventListener("click", function () {
         if (currentIndex < circles.length - 1) {
             circles[currentIndex].classList.add("previous");
             currentIndex++;
-            await updateButtonState();
+            updateButtonState().then(() => {}); // Resolve the promise
         }
     });
 
-    async function updateButtonState() {
-        for (let index = 0; index < circles.length; index++) {
-            const circle = circles[index];
+    function updateButtonState() {
+        return new Promise((resolve) => {
+            circles.forEach((circle, index) => {
+                if (index === currentIndex) {
+                    circle.classList.add("active");
+                } else {
+                    circle.classList.remove("active");
+                }
 
-            if (index === currentIndex) {
-                circle.classList.add("active");
-            } else {
-                circle.classList.remove("active");
-            }
+                if (index < currentIndex) {
+                    circle.classList.add("previous");
+                } else {
+                    circle.classList.remove("previous");
+                }
+            });
 
-            if (index < currentIndex) {
-                circle.classList.add("previous");
-            } else {
-                circle.classList.remove("previous");
-            }
-        }
+            lines.forEach((line, index) => {
+                if (index < currentIndex) {
+                    line.classList.add("active");
+                } else {
+                    line.classList.remove("active");
+                }
+            });
 
-        for (let index = 0; index < lines.length; index++) {
-            const line = lines[index];
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === circles.length - 1;
 
-            if (index < currentIndex) {
-                line.classList.add("active");
-            } else {
-                line.classList.remove("active");
-            }
-        }
-
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex === circles.length - 1;
+            // Resolve the promise after a short delay
+            setTimeout(() => {
+                resolve();
+            }, 10);
+        });
     }
 });
