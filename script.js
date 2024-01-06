@@ -8,53 +8,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateButtonState();
 
-    prevBtn.addEventListener("click", function () {
+    prevBtn.addEventListener("click", async function () {
         if (currentIndex > 0) {
             currentIndex--;
-            updateButtonState();
+            await updateButtonState();
         }
     });
 
-    nextBtn.addEventListener("click", function () {
+    nextBtn.addEventListener("click", async function () {
         if (currentIndex < circles.length - 1) {
             circles[currentIndex].classList.add("previous");
             currentIndex++;
-            updateButtonState();
+            await updateButtonState();
         }
     });
 
-    function updateButtonState() {
-        circles.forEach((circle, index) => {
+    async function updateButtonState() {
+        for (let index = 0; index < circles.length; index++) {
+            const circle = circles[index];
+
             if (index === currentIndex) {
                 circle.classList.add("active");
             } else {
                 circle.classList.remove("active");
             }
 
-			if(index < currentIndex)
-			{
-				circle.classList.add("previous");
-			}
-			else
-			{
-				circle.classList.remove("previous");
-			}
+            if (index < currentIndex) {
+                circle.classList.add("previous");
+            } else {
+                circle.classList.remove("previous");
+            }
+        }
 
-			setTimeout(() => {
-				if(index === currentIndex - 1)
-				{
-					circle.classList.add("active");
-				}
-			},10);
-        });
+        for (let index = 0; index < lines.length; index++) {
+            const line = lines[index];
 
-        lines.forEach((line, index) => {
             if (index < currentIndex) {
                 line.classList.add("active");
             } else {
                 line.classList.remove("active");
             }
-        });
+        }
 
         prevBtn.disabled = currentIndex === 0;
         nextBtn.disabled = currentIndex === circles.length - 1;
