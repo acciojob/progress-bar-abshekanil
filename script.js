@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	const circles = document.querySelectorAll(".circle");
 	const prevBtn = document.getElementById("prevBtn");
 	const nextBtn = document.getElementById("nextBtn");
+	const lines = document.querySelectorAll(".line");
 
 	let currentIndex = 0;
 
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	nextBtn.addEventListener("click", function(){
 		if(currentIndex < circles.length - 1)
 		{
+			circles[currentIndex].classList.add("previous");
 			currentIndex++;
 			updateButtonState();
 		}
@@ -32,9 +34,17 @@ document.addEventListener("DOMContentLoaded", function(){
 					circle.classList.add("active");
 				}
 				else{
-					circle.classList.remove("active");
+					circle.classList.remove("active", "previous");
 				}
 			});
+
+			lines.forEach((line, index) => {
+            if (index < currentIndex) {
+                line.classList.add("active");
+            } else {
+                line.classList.remove("active");
+            }
+        });
 
 			prevBtn.disabled = currentIndex === 0;
 			nextBtn.disabled = currentIndex === circles.length - 1;

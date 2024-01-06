@@ -27,6 +27,12 @@
 .circle.active{
 	border: 5px solid #1a73e8;
 }
+.circle.previous{
+	border: 5px solid #1a73e8;
+}
+.line.active{
+	background-color: #1a73e8;
+}
 
 .btn-container{
 	display:flex;
