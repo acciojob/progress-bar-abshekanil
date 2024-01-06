@@ -1,7 +1,7 @@
 //your JS code here. If required.
 document.addEventListener("DOMContentLoaded", function(){
 	const circles = document.querySelectorAll(".circle");
-	const prevBtn = document.getElementById("prevBtn");
+	const prevBtn = document.getElementById("prev");
 	const nextBtn = document.getElementById("nextBtn");
 	const lines = document.querySelectorAll(".line");
 
