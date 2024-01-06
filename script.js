@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     prevBtn.addEventListener("click", function () {
         if (currentIndex > 0) {
             currentIndex--;
-            updateButtonState().then(() => {}); // Resolve the promise
+            updateButtonState();
         }
     });
 
@@ -19,41 +19,44 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex < circles.length - 1) {
             circles[currentIndex].classList.add("previous");
             currentIndex++;
-            updateButtonState().then(() => {}); // Resolve the promise
+            updateButtonState();
         }
     });
 
     function updateButtonState() {
-        return new Promise((resolve) => {
-            circles.forEach((circle, index) => {
-                if (index === currentIndex) {
-                    circle.classList.add("active");
-                } else {
-                    circle.classList.remove("active");
-                }
+        circles.forEach((circle, index) => {
+            if (index === currentIndex) {
+                circle.classList.add("active");
+            } else {
+                circle.classList.remove("active");
+            }
 
-                if (index < currentIndex) {
-                    circle.classList.add("previous");
-                } else {
-                    circle.classList.remove("previous");
-                }
-            });
+			if(index < currentIndex)
+			{
+				circle.classList.add("previous");
+			}
+			else
+			{
+				circle.classList.remove("previous");
+			}
 
-            lines.forEach((line, index) => {
-                if (index < currentIndex) {
-                    line.classList.add("active");
-                } else {
-                    line.classList.remove("active");
-                }
-            });
-
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex === circles.length - 1;
-
-            // Resolve the promise after a short delay
-            setTimeout(() => {
-                resolve();
-            }, 10);
+			setTimeout(() => {
+				if(index === currentIndex - 1)
+				{
+					circle.classList.add("active");
+				}
+			},10);
         });
+
+        lines.forEach((line, index) => {
+            if (index < currentIndex) {
+                line.classList.add("active");
+            } else {
+                line.classList.remove("active");
+            }
+        });
+
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === circles.length - 1;
     }
 });
