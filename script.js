@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 	const circles = document.querySelectorAll(".circle");
 	const prevBtn = document.getElementById("prev");
-	const nextBtn = document.getElementById("nextBtn");
+	const nextBtn = document.getElementById("next");
 	const lines = document.querySelectorAll(".line");
 
 	let currentIndex = 0;
