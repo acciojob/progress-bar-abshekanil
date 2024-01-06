@@ -39,6 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			{
 				circle.classList.remove("previous");
 			}
+
+			setTimeout(() => {
+				if(index === currentIndex - 1)
+				{
+					circle.classList.add("active");
+				}
+			},10);
         });
 
         lines.forEach((line, index) => {
